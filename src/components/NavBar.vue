@@ -4,7 +4,7 @@
       <v-toolbar-items>
         <v-btn text>
           <v-icon left large>mdi-cloud-search</v-icon>
-          <v-toolbar-title class="display-1">
+          <v-toolbar-title class="headline">
             <span class="font-weight-bold">Weather </span>
             <span>App</span>
           </v-toolbar-title>
