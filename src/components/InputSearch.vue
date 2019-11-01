@@ -19,6 +19,7 @@
 import weatherService from '../services/weatherService';
 
 export default {
+  name: 'InputSearch',
   data() {
     return {
       location: '',
