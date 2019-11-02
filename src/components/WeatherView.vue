@@ -13,9 +13,17 @@
           <span>{{ data.description }}</span>
         </v-card-subtitle>
       </v-container>
-      <v-card-text class="display-1"
-        ><span v-if="!inCelsius">{{ fahrenheit }}&deg;F</span>
-        <span v-else>{{ celsius }}&deg;C</span>
+      <v-card-text class="d-flex justify-space-between grey darken-1"
+        ><span class="display-2" v-if="!inCelsius">{{ fahrenheit }}&deg;F</span>
+        <span class="display-2" v-else>{{ celsius }}&deg;C</span>
+        <v-list class="subtitle-1">
+          <v-list-item style="min-height: 24px">
+            <span>Humidity {{ data.weatherInfo.humidity }}%</span>
+          </v-list-item>
+          <v-list-item style="min-height: 24px">
+            <span>Pressure {{ data.weatherInfo.pressure }}hPa</span>
+          </v-list-item>
+        </v-list>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions class="justify-end pa-0 px-4">
