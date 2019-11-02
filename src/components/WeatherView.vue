@@ -36,7 +36,7 @@
 <script>
 export default {
   name: 'WeatherView',
-  props: ['data'],
+  props: ['data', 'userPref'],
   data() {
     return {
       inCelsius: false
@@ -55,6 +55,18 @@ export default {
     celsius() {
       const { temp } = this.data.weatherInfo;
       return Math.round(temp - 273.15);
+    }
+  },
+  watch: {
+    inCelsius(val) {
+      if (val != this.userPref.inCelsius) {
+        this.$emit('save-user-pref', { inCelsius: val });
+      }
+    }
+  },
+  beforeMount() {
+    if (this.userPref && this.userPref.inCelsius) {
+      this.inCelsius = this.userPref.inCelsius;
     }
   }
 };

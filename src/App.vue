@@ -4,7 +4,11 @@
     <v-content>
       <input-search @search-location-data="handleSearchLocationData" />
       <v-divider></v-divider>
-      <weather-view :data="weatherData" />
+      <weather-view
+        :data="weatherData"
+        :userPref="userPref"
+        @save-user-pref="handleSaveUserPref"
+      />
     </v-content>
   </v-app>
 </template>
@@ -15,11 +19,13 @@ import InputSearch from './components/InputSearch.vue';
 import WeatherView from './components/WeatherView.vue';
 
 import weatherService from './services/weatherService';
+import userPrefSerivice from './services/userPref';
 
 export default {
   name: 'App',
   data: () => ({
-    weatherData: null
+    weatherData: null,
+    userPref: null
   }),
   components: {
     NavBar,
@@ -29,7 +35,13 @@ export default {
   methods: {
     async handleSearchLocationData(location) {
       this.weatherData = await weatherService.getLocationData(location);
+    },
+    handleSaveUserPref(pref) {
+      userPrefSerivice.setUserPref(pref);
     }
+  },
+  beforeMount() {
+    this.userPref = userPrefSerivice.getUserPref();
   }
 };
 </script>
