@@ -27,7 +27,7 @@ export default {
 
       return getDataObject(data);
     } catch (err) {
-      console.log(err);
+      return null;
     }
   }
 };
