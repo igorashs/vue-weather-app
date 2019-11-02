@@ -1,7 +1,7 @@
 <template>
   <v-container style="max-width: 512px">
     <v-form @submit.stop.prevent="onSearchLocationData">
-      <v-row class="align-center">
+      <v-row class="align-start">
         <v-text-field
           class="title pa-1"
           label="Enter Your Location Here..."
