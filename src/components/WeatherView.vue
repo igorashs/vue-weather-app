@@ -2,7 +2,7 @@
   <v-container class="d-flex justify-center" v-if="data">
     <v-card max-width="1024" min-width="320">
       <v-container class="deep-purple darken-1 px-4">
-        <v-card-title class="headline justify-space-between pa-0">
+        <v-card-title class="headline justify-space-between pa-0 pb-2">
           <span class="font-weight-bold"> {{ data.name }}</span>
           <v-img style="max-width: 50px;" :src="data.iconUrl" />
         </v-card-title>
