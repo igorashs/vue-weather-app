@@ -9,6 +9,7 @@
         :userPref="userPref"
         @save-user-pref="handleSaveUserPref"
       />
+      <no-data-dialog :show="errorDialog" @toggle-dialog="handleToggleDialog" />
     </v-content>
   </v-app>
 </template>
@@ -17,6 +18,7 @@
 import NavBar from './components/NavBar.vue';
 import InputSearch from './components/InputSearch.vue';
 import WeatherView from './components/WeatherView.vue';
+import NoDataDialog from './components/NoDataDialog.vue';
 
 import weatherService from './services/weatherService';
 import userPrefSerivice from './services/userPref';
@@ -25,19 +27,25 @@ export default {
   name: 'App',
   data: () => ({
     weatherData: null,
-    userPref: null
+    userPref: null,
+    errorDialog: false
   }),
   components: {
     NavBar,
     InputSearch,
-    WeatherView
+    WeatherView,
+    NoDataDialog
   },
   methods: {
     async handleSearchLocationData(location) {
       this.weatherData = await weatherService.getLocationData(location);
+      if (!this.weatherData) this.errorDialog = true;
     },
     handleSaveUserPref(pref) {
       userPrefSerivice.setUserPref(pref);
+    },
+    handleToggleDialog(val) {
+      this.errorDialog = val;
     }
   },
   beforeMount() {
