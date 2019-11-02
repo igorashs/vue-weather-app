@@ -10,6 +10,7 @@
         @save-user-pref="handleSaveUserPref"
       />
       <no-data-dialog :show="errorDialog" @toggle-dialog="handleToggleDialog" />
+      <loading-progress-view absolute :show="isLoading" />
     </v-content>
   </v-app>
 </template>
@@ -19,6 +20,7 @@ import NavBar from './components/NavBar.vue';
 import InputSearch from './components/InputSearch.vue';
 import WeatherView from './components/WeatherView.vue';
 import NoDataDialog from './components/NoDataDialog.vue';
+import LoadingProgressView from './components/LoadingProgressView.vue';
 
 import weatherService from './services/weatherService';
 import userPrefSerivice from './services/userPref';
@@ -28,17 +30,23 @@ export default {
   data: () => ({
     weatherData: null,
     userPref: null,
-    errorDialog: false
+    errorDialog: false,
+    isLoading: false
   }),
   components: {
     NavBar,
     InputSearch,
     WeatherView,
-    NoDataDialog
+    NoDataDialog,
+    LoadingProgressView
   },
   methods: {
     async handleSearchLocationData(location) {
-      this.weatherData = await weatherService.getLocationData(location);
+      const data = await weatherService.getLocationData(location);
+
+      await this.showLoadingProgress(1000);
+      this.weatherData = data;
+
       if (!this.weatherData) this.errorDialog = true;
     },
     handleSaveUserPref(pref) {
@@ -46,6 +54,11 @@ export default {
     },
     handleToggleDialog(val) {
       this.errorDialog = val;
+    },
+    async showLoadingProgress(ms) {
+      this.isLoading = true;
+      await new Promise(resolve => setTimeout(resolve, ms));
+      this.isLoading = false;
     }
   },
   beforeMount() {
