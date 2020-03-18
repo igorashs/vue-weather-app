@@ -14,6 +14,7 @@ There is already an API key(free)
 ```bash
 git clone git@github.com:igorashs/vue-weather-app.git
 cd vue-weather-app
+npm install
 npm run serve
 ```
 ## Built With
